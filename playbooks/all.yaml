@@ -1,0 +1,5 @@
+- import_playbook: upgrade.yaml
+- import_playbook: labgrid-coordinators.yaml
+- import_playbook: labgrid-exporters.yaml
+- import_playbook: mqtt-brokers.yaml
+- import_playbook: nfs-server.yaml

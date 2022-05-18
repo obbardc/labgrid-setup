@@ -1,0 +1,22 @@
+---
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+
+- name: Check if reboot is required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+
+- name: Reboot after software update
+  become: true
+  when: reboot_required.stat.exists == true
+  reboot:
+    reboot_timeout: 300
+  register: reboot

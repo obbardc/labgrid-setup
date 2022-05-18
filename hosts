@@ -1,0 +1,6 @@
+[labgrid_exporters]
+labgrid-exporter-0001 ansible_ssh_host=labgrid-exporter-0001 ansible_user=pi ansible_python_interpreter=/usr/bin/python3
+
+[labgrid_coordinators]
+labgrid-exporter-0001
+

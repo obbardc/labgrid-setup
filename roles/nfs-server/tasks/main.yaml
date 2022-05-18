@@ -1,0 +1,31 @@
+- name: Install nfs server
+  become: true
+  apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Create NFS export directory
+  become: true
+  file:
+    path: /srv/nfs
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '0755'
+
+# TODO Maybe do not allow complete RW access
+- name: Configure NFS exports
+  become: true
+  copy:
+    content: |
+      /srv/nfs *
+    dest: /etc/exports
+  register: nfs_conf
+
+- name: Start NFS
+  become: true
+  systemd:
+    name: nfs-server
+    daemon_reload: yes
+    state: "{{ 'reloaded' if nfs_conf.changed else 'started' }}"
+    enabled: true

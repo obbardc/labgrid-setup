@@ -1,0 +1,55 @@
+# TODO should we use a bindmount rather than a volume?
+- name: Install Labgrid Coordinator service file
+  become: true
+  copy:
+    dest: /etc/systemd/system/labgrid-coordinator.service
+    src: ../files/labgrid-coordinator.service
+    mode: '0644'
+  register: coordinator_service
+
+- name: Create Labgrid configuration directory
+  become: true
+  file:
+    path: /etc/labgrid
+    state: directory
+    mode: '0755'
+
+- name: Copy Labgrid coordinator configuration
+  become: true
+  copy:
+    src: ../../../files/{{ inventory_hostname }}/places.yaml
+    dest: /etc/labgrid/places.yaml
+    mode: '0644'
+  register: coordinator_conf
+
+# TODO restart service if a new image has been pushed?
+- name: Start Labgrid coordinator
+  become: true
+  systemd:
+    name: labgrid-coordinator
+    daemon_reload: yes
+    state: "{{ 'restarted' if coordinator_service.changed or coordinator_conf.changed else 'started' }}"
+    enabled: true
+
+# TODO get coordinator port from configuration?
+- name: Wait for coordinator to start
+  ansible.builtin.wait_for:
+    port: 20408
+    delay: 10
+    timeout: 60
+
+# Configure Labgrid places
+# manually run:
+#  docker exec -it labgrid-coordinator.service /opt/labgrid/contrib/sync-places.py sync /opt/conf/places.yaml
+- name: Configure Labgrid places
+  ansible.builtin.command:
+    argv:
+      - "docker"
+      - "exec"
+      - "-it"
+      - "labgrid-coordinator.service"
+      - "/opt/labgrid/contrib/sync-places.py"
+      - "sync"
+      - "/opt/conf/places.yaml"
+  register: result
+  changed_when: result.stdout | length > 0

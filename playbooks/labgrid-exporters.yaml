@@ -1,0 +1,5 @@
+---
+- name: Setup labgrid exporters
+  hosts: labgrid_exporters
+  roles:
+    - labgrid-exporter

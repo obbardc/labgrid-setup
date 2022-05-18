@@ -1,0 +1,5 @@
+---
+- name: Setup NFS servers
+  hosts: labgrid-exporter-0001
+  roles:
+    - nfs-server

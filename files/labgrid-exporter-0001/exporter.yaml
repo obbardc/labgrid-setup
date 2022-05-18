@@ -1,0 +1,43 @@
+rockchip_rk3399-nanopi-m4-0001:
+  TasmotaPowerPort:
+    host: labgrid-exporter-0001
+    avail_topic: pdu-s26-0001/status
+    power_topic: pdu-s26-0001/switch/pdu-s26-0001_relay/state
+    status_topic: pdu-s26-0001/switch/pdu-s26-0001_relay/state
+  USBSerialPort:
+    match:
+      ID_PATH: platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2.2:1.0
+    speed: 1500000
+
+rockchip_rk3399-roc-pc-0001:
+  TasmotaPowerPort:
+    host: labgrid-exporter-0001
+    avail_topic: pdu-s26-0002/status
+    power_topic: pdu-s26-0002/switch/pdu-s26-0002_relay/command
+    status_topic: pdu-s26-0002/switch/pdu-s26-0002_relay/state
+  USBSerialPort:
+    match:
+      ID_PATH: platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2.4.1:1.0
+    speed: 1500000
+
+rockchip_rk3328-rock-pi-e-0001:
+  TasmotaPowerPort:
+    host: labgrid-exporter-0001
+    avail_topic: pdu-s26-0003/status
+    power_topic: pdu-s26-0003/switch/pdu-s26-0003_relay/command
+    status_topic: pdu-s26-0003/switch/pdu-s26-0003_relay/state
+  USBSerialPort:
+    match:
+      ID_PATH: platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2.4.4.4.1:1.0
+    speed: 1500000
+
+rockchip_rk3328-rock-pi-e-0002:
+  TasmotaPowerPort:
+    host: labgrid-exporter-0001
+    avail_topic: pdu-s26-0004/status
+    power_topic: pdu-s26-0004/switch/pdu-s26-0004_relay/command
+    status_topic: pdu-s26-0004/switch/pdu-s26-0004_relay/state
+  USBSerialPort:
+    match:
+      ID_PATH: platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2.4.4.4.3:1.0
+    speed: 1500000

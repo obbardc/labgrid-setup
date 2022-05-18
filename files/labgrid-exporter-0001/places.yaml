@@ -1,0 +1,28 @@
+places:
+  rockchip_rk3399-nanopi-m4-0001:
+    matches:
+      - "*/rockchip_rk3399-nanopi-m4-0001/*"
+    tags:
+      board: rk3399-nanopi-m4
+      soc: rk3399
+
+  rockchip_rk3399-roc-pc-0001:
+    matches:
+      - "*/rockchip_rk3399-roc-pc-0001/*"
+    tags:
+      board: rk3399-roc-pc
+      soc: rk3399
+
+  rockchip_rk3328-rock-pi-e-0001:
+    matches:
+      - "*/rockchip_rk3328-rock-pi-e-0001/*"
+    tags:
+      board: rk3328-rock-pi-e
+      soc: rk3328
+
+  rockchip_rk3328-rock-pi-e-0002:
+    matches:
+      - "*/rockchip_rk3328-rock-pi-e-0002/*"
+    tags:
+      board: rk3328-rock-pi-e
+      soc: rk3328

@@ -1,0 +1,5 @@
+---
+- name: Setup mqtt brokers
+  hosts: labgrid-exporter-0001
+  roles:
+    - mosquitto-mqtt-broker

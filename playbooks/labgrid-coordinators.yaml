@@ -1,0 +1,5 @@
+---
+- name: Setup labgrid coordinators
+  hosts: labgrid_coordinators
+  roles:
+    - labgrid-coordinator

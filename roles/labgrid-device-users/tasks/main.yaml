@@ -1,0 +1,17 @@
+- name: Create user obbardc
+  become: true
+  user:
+    name: obbardc
+    comment: Christopher Obbard
+    # generate using mkpasswd --method=sha-512
+    # pass: test
+    password: $6$6m6wVQs36GySZKhu$V9dawKBMglIb2ZUluah7C7j4utjGIoviTFdkUwXBBc35nC3OP65605dmsFsJNMWnOrQylLKen0Igb76ok.E9x1
+    # TODO set group
+    #group: labgrid
+
+- name: Set obbardc authorized key
+  become: true
+  authorized_key:
+    user: obbardc
+    state: present
+    key: https://github.com/obbardc.keys

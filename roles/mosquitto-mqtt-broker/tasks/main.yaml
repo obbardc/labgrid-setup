@@ -1,0 +1,32 @@
+- name: Install mosquitto service file
+  become: true
+  copy:
+    dest: /etc/systemd/system/mosquitto-mqtt-broker.service
+    src: ../files/mosquitto-mqtt-broker.service
+    mode: '0644'
+  register: mosquitto_service
+
+- name: Create Mosquitto configuration directory
+  become: true
+  file:
+    path: /etc/mosquitto
+    state: directory
+    mode: '0755'
+
+- name: Configure Mosquitto
+  become: true
+  copy:
+    content: |
+      listener 1883 0.0.0.0
+      allow_anonymous true
+    dest: /etc/mosquitto/mosquitto.conf
+  register: mosquitto_conf
+
+# TODO restart service if a new image has been pushed?
+- name: Start mosquitto
+  become: true
+  systemd:
+    name: mosquitto-mqtt-broker
+    daemon_reload: yes
+    state: "{{ 'restarted' if mosquitto_service.changed or mosquitto_conf.changed else 'started' }}"
+    enabled: true

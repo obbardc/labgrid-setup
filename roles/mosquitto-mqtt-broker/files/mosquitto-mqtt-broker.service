@@ -1,0 +1,21 @@
+[Unit]
+Description=Mosquitto MQTT Broker
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+Environment=IMAGE=eclipse-mosquitto:latest
+ExecStartPre=-/usr/bin/docker kill %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull $IMAGE
+ExecStart=/usr/bin/docker run --rm --name %n \
+    --mount type=bind,source=/etc/mosquitto/mosquitto.conf,target=/mosquitto/config/mosquitto.conf,readonly \
+    -p 1883:1883 \
+    $IMAGE
+
+ExecStop=/usr/bin/docker kill %n
+
+[Install]
+WantedBy=default.target
